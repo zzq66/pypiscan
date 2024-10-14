@@ -1,0 +1,17 @@
+rules:
+  - id: obfuscation
+    message: This package is using a common obfuscation method often used by malware
+    metadata:
+      description: Identify when a package uses a common obfuscation method often used by malware
+    patterns:
+      - pattern-either:
+          # evaluates to "eval"
+          - pattern: 'eval("\145\166\141\154")'
+          - pattern: 'eval("\x65\x76\x61\x6c")'
+          - pattern: '_____=eval(...)'
+          - pattern: '(...).__str__(...)'
+          - pattern: '__builtins__'
+          - pattern: '__subclasses__'   
+    languages:
+      - python
+    severity: WARNING
